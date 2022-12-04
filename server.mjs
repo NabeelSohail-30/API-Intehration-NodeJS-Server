@@ -1,28 +1,25 @@
 import express from 'express';
-import cors from 'cors';
 import path from 'path';
 
 const app = express()
-const cors = cors()
-const port = process.env.PORT || 5005;
-
-app.use(cors());
+const port = process.env.PORT || 5001;
 
 app.get('/weather', (req, res) => {
-    console.log("request ip: ", req.ip);
+
+    console.log(`${req.ip} is asking for weather`)
 
     res.send({
-        temp: 30,
-        min: 26,
-        max: 31,
+        city: "karachi",
+        temp: 26,
         humidity: 72,
-        serverTime: new Date().toString()
-    });
+        temp_max: 31,
+        temp_min: 19
+    })
 })
 
 const __dirname = path.resolve();
-app.use('/', express.static(path.join(__dirname, './web/build')))
-app.use('*', express.static(path.join(__dirname, './web/build')))
+app.get('/', express.static(path.join(__dirname, "/web/index.html")));
+app.use('/', express.static(path.join(__dirname, "/web")));
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

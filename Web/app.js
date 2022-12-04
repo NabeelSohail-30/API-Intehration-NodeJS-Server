@@ -1,32 +1,38 @@
+const url = window.location.href;
+let baseUrl = "";
+
+if (url.split(":")[0] === 'http') {
+    baseUrl = 'http://localhost:5001';
+} else {
+    baseUrl = 'https://ill-pink-gorilla-cuff.cyclic.app';
+}
+
 let getWeather = () => {
 
-    let cityName = document.querySelector("#city").value;
-    document.querySelector(".main").style.display = "block";
+    let cityName = document.querySelector("#cityName").value
 
-    let body = document.querySelector("body");
-
-    axios.get(`http://localhost:5005/weather`)
+    axios.get(`${baseUrl}/weather`)
         .then(function (response) {
+            // handle success
             console.log("response is success");
             console.log(response.data);
 
-            document.querySelector("#main-data").innerHTML = `${response.data.name} ${response.data.main.temp}<sup>o</sup>C`;
-            document.querySelector("#icon").src = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+            document.querySelector("#main-data").innerHTML = `${response.data.city} ${response.data.temp}<sup>o</sup>C`;
             document.querySelector("#weather").value = response.data.weather[0].main;
             document.querySelector("#weatherDesc").value = response.data.weather[0].description;
-            document.querySelector("#temp").value = response.data.main.temp + 'C';
-            document.querySelector("#feelsLike").value = response.data.main.feels_like + 'C';
-            document.querySelector("#maxTemp").value = response.data.main.temp_max + 'C';
-            document.querySelector("#minTemp").value = response.data.main.temp_min + 'C';
-            document.querySelector("#pressure").value = response.data.main.pressure + '%';
-            document.querySelector("#humidity").value = response.data.main.humidity + '%';
+            document.querySelector("#temp").value = response.data.temp + 'C';
+            document.querySelector("#feelsLike").value = response.data.feels_like + 'C';
+            document.querySelector("#maxTemp").value = response.data.temp_max + 'C';
+            document.querySelector("#minTemp").value = response.data.temp_min + 'C';
+            document.querySelector("#pressure").value = response.data.pressure + '%';
+            document.querySelector("#humidity").value = response.data.humidity + '%';
             document.querySelector("#visibility").value = response.data.visibility + '%';
-            document.querySelector("#windSpeed").value = response.data.wind.speed + ' mph';
-            document.querySelector("#windDirection").value = response.data.wind.deg + ' degree';
-            document.querySelector("#cloud").value = response.data.clouds.all + '%';
-
+            document.querySelector("#windSpeed").value = response.data.windspeed + ' mph';
+            document.querySelector("#windDirection").value = response.data.winddeg + ' degree';
+            document.querySelector("#cloud").value = response.data.clouds + '%';
         })
         .catch(function (error) {
+            // handle error
             console.log(error);
         })
 }
