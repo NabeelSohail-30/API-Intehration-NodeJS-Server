@@ -1,7 +1,9 @@
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 
 const app = express()
+app.use(cors)
 const port = process.env.PORT || 5001;
 
 app.get('/weather', (req, res) => {
