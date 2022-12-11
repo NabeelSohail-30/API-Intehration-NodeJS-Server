@@ -9,7 +9,7 @@ if (url.split(":")[0] === 'http') {
 
 let getWeather = () => {
 
-    let cityName = document.querySelector("#cityName").value
+    //let cityName = document.querySelector("#cityName").value
 
     axios.get(`${baseUrl}/weather`)
         .then(function (response) {
